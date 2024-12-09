@@ -9,6 +9,9 @@ class DataLoader:
     '''
     def __init__(self, file: str):
         self.filename = file
+        self.X = None
+        self.y = None
+        self.get_data()
 
     def get_data(self) -> tuple:
         '''
@@ -31,9 +34,10 @@ class DataLoader:
         data_encoded[numerical_columns] = scaler.fit_transform(data_encoded[numerical_columns])
         X = data_encoded.drop('Price', axis=1)
         y = data_encoded['Price']
+        self.X, self.y = X, y
         return X, y
 
-    def get_train_test(X, y):
+    def get_train_test(self, X, y):
         '''
         Splits the data into train-validation-test sets.
 
